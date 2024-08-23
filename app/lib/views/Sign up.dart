@@ -77,11 +77,12 @@ class _signUpState extends State<signUp> {
           ),
           ButtomDesign(
             label: 'Sign Up',
-            onTap: (){
+            onTap: () async{
              var auth = FirebaseAuth.instance;
-             auth.createUserWithEmailAndPassword(
+             UserCredential user = await  auth.createUserWithEmailAndPassword(
               email: email!, 
               password: Password!);
+              //print(user.user!.displayName);
             },
           ),
           const SizedBox(

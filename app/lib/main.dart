@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app/core/utlis/size%20config%20model.dart';
 import 'package:app/firebase_options.dart';
 import 'package:app/views/HomePage.dart';
@@ -12,7 +14,15 @@ import 'package:get/get.dart';
 
 void main() async{
    WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
+Platform.isAndroid? await Firebase.initializeApp(
+    options: const FirebaseOptions(
+      apiKey: "AIzaSyCrtuJlSkqPLaQtJQQGY1VztDvA1c7q7cQ",
+      appId: "1:476402096447:android:aeb941c0587288c93f1b8a",
+      messagingSenderId: "476402096447",
+      projectId: "shosestore-60804",
+    ),
+)
+  :await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(const shoesStore());

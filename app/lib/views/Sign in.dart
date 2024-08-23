@@ -49,12 +49,18 @@ class _signInState extends State<signIn> {
             height: 60,
           ),
           TextFielddesign(
+            onChanged: (data){
+
+            },
             txt: 'Email Address',
           ),
           const SizedBox(
             height: 40,
           ),
           TextFielddesign(
+            onChanged: (data){
+              
+            },
             txt: 'Password',
           ),
           SizedBox(
