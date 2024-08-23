@@ -104,7 +104,7 @@ class _signUpState extends State<signUp> {
                  setState(() {
                   
                 });
-                //print(user.user!.displayName);
+                Navigator.pop(context);
               },
             ),
             const SizedBox(
