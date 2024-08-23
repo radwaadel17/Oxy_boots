@@ -79,17 +79,13 @@ class _signUpState extends State<signUp> {
             label: 'Sign Up',
             onTap: () async {
               try {
-                var auth = FirebaseAuth.instance;
-                UserCredential user = await auth.createUserWithEmailAndPassword(
-                    email: email!, password: Password!);
+                await registerUser();
               } on FirebaseAuthException catch (e) {
                 if (e.code == 'weak-password') {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('The password provided is too weak.')));
+                  showSnackbar(context, 'The password provided is too weak.');
                 } else if (e.code == 'email-already-in-use') {
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content:
-                          Text('The account already exists for that email')));
+                  showSnackbar(
+                      context, 'The account already exists for that email.');
                 }
               }
               ScaffoldMessenger.of(context).showSnackBar(
@@ -148,5 +144,16 @@ class _signUpState extends State<signUp> {
         ],
       ),
     );
+  }
+
+  void showSnackbar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  Future<void> registerUser() async {
+    var auth = FirebaseAuth.instance;
+    UserCredential user = await auth.createUserWithEmailAndPassword(
+        email: email!, password: Password!);
   }
 }
