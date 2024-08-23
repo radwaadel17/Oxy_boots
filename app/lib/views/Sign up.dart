@@ -16,7 +16,7 @@ class _signUpState extends State<signUp> {
   String? name;
   String? email;
   String? Password;
-  bool  Isloading  = false;
+  bool Isloading = false;
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -82,13 +82,12 @@ class _signUpState extends State<signUp> {
             ButtomDesign(
               label: 'Sign Up',
               onTap: () async {
-                Isloading = true; 
-                setState(() {
-                  
-                });
+                Isloading = true;
+                setState(() {});
                 try {
                   await registerUser();
-                 showSnackbar(context, 'Success Registration');
+                  showSnackbar(context, 'Success Registration');
+                  Navigator.pop(context);
                 } on FirebaseAuthException catch (e) {
                   if (e.code == 'weak-password') {
                     showSnackbar(context, 'The password provided is too weak.');
@@ -96,15 +95,11 @@ class _signUpState extends State<signUp> {
                     showSnackbar(
                         context, 'The account already exists for that email.');
                   }
-                }
-                catch(e){
+                } catch (e) {
                   showSnackbar(context, 'there was an error');
                 }
                 Isloading = false;
-                 setState(() {
-                  
-                });
-                Navigator.pop(context);
+                setState(() {});
               },
             ),
             const SizedBox(
