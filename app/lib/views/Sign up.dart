@@ -12,9 +12,9 @@ class signUp extends StatefulWidget {
 }
 
 class _signUpState extends State<signUp> {
-  String? name ;
-  String? email ;
-  String? Password ; 
+  String? name;
+  String? email;
+  String? Password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,8 +49,8 @@ class _signUpState extends State<signUp> {
             height: 60,
           ),
           TextFielddesign(
-            onChanged: (data){
-             name = data ;
+            onChanged: (data) {
+              name = data;
             },
             txt: 'Your Name',
           ),
@@ -58,8 +58,8 @@ class _signUpState extends State<signUp> {
             height: 40,
           ),
           TextFielddesign(
-            onChanged: (data){
-              email  = data ;
+            onChanged: (data) {
+              email = data;
             },
             txt: 'Email Address',
           ),
@@ -67,8 +67,8 @@ class _signUpState extends State<signUp> {
             height: 40,
           ),
           TextFielddesign(
-            onChanged: (data){
-              Password = data; 
+            onChanged: (data) {
+              Password = data;
             },
             txt: 'Password',
           ),
@@ -77,11 +77,23 @@ class _signUpState extends State<signUp> {
           ),
           ButtomDesign(
             label: 'Sign Up',
-            onTap: () async{
-             var auth = FirebaseAuth.instance;
-             UserCredential user = await  auth.createUserWithEmailAndPassword(
-              email: email!, 
-              password: Password!);
+            onTap: () async {
+              try {
+                var auth = FirebaseAuth.instance;
+                UserCredential user = await auth.createUserWithEmailAndPassword(
+                    email: email!, password: Password!);
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'weak-password') {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('The password provided is too weak.')));
+                } else if (e.code == 'email-already-in-use') {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content:
+                          Text('The account already exists for that email')));
+                }
+              }
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Success Registration')));
               //print(user.user!.displayName);
             },
           ),
