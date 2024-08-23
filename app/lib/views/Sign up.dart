@@ -1,5 +1,6 @@
 import 'package:app/Parts/Button%20design.dart';
 import 'package:app/Parts/input%20text%20design.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -11,7 +12,9 @@ class signUp extends StatefulWidget {
 }
 
 class _signUpState extends State<signUp> {
-  
+  String? name ;
+  String? email ;
+  String? Password ; 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -46,26 +49,40 @@ class _signUpState extends State<signUp> {
             height: 60,
           ),
           TextFielddesign(
+            onChanged: (data){
+             name = data ;
+            },
             txt: 'Your Name',
           ),
           const SizedBox(
             height: 40,
           ),
           TextFielddesign(
+            onChanged: (data){
+              email  = data ;
+            },
             txt: 'Email Address',
           ),
           const SizedBox(
             height: 40,
           ),
           TextFielddesign(
+            onChanged: (data){
+              Password = data; 
+            },
             txt: 'Password',
           ),
           const SizedBox(
             height: 40,
           ),
           ButtomDesign(
-            label: 'Sign In',
-            fun: (){},
+            label: 'Sign Up',
+            onTap: (){
+             var auth = FirebaseAuth.instance;
+             auth.createUserWithEmailAndPassword(
+              email: email!, 
+              password: Password!);
+            },
           ),
           const SizedBox(
             height: 10,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class TextFielddesign extends StatelessWidget {
-  const TextFielddesign({super.key , required this.txt });
-   final String txt ; 
+   TextFielddesign({super.key , required this.txt , required this.onChanged});
+  String txt ; 
+   Function(String)? onChanged;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,6 +28,7 @@ class TextFielddesign extends StatelessWidget {
               borderRadius: BorderRadius.circular(24),
              ),
              child: TextField(
+              onChanged: onChanged ,
               decoration: InputDecoration(
                 border: InputBorder.none,
                 contentPadding: EdgeInsets.zero,

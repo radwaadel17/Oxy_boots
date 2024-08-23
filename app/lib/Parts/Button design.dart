@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class ButtomDesign extends StatelessWidget {
-  const ButtomDesign({super.key , required this.label , required this.fun});
+  const ButtomDesign({super.key , required this.label , required this.onTap});
   final String label ;
-  final Function fun ;
+  final VoidCallback? onTap ;
   @override
   Widget build(BuildContext context) {
     return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: ElevatedButton(onPressed: ()=> fun(),
+            child: ElevatedButton(onPressed: onTap,
              child: Text(
               '$label' ,
               style: TextStyle(

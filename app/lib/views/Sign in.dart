@@ -79,7 +79,9 @@ class _signInState extends State<signIn> {
           const SizedBox(
             height: 40,
           ),
-          ButtomDesign(label: 'Sign In', fun: (){}),
+          ButtomDesign(label: 'Sign In', onTap:(){
+            
+          } ),
           const SizedBox(
             height: 10,
           ),
