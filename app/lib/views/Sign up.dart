@@ -88,8 +88,10 @@ class _signUpState extends State<signUp> {
                       context, 'The account already exists for that email.');
                 }
               }
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Success Registration')));
+              catch(e){
+                showSnackbar(context, 'there was an error');
+              }
+              showSnackbar(context, 'Success Registration');
               //print(user.user!.displayName);
             },
           ),
