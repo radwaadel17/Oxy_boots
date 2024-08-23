@@ -98,25 +98,19 @@ class _signInState extends State<signIn> {
                   Isloading = true;
                   setState(() {});
                   try {
-                    var auth = FirebaseAuth.instance;
-                    await auth.signInWithEmailAndPassword(
-                        email: email!, password: password!);
+                    await loginUser();
                     showSnackbar(context, 'Success Login');
                     Navigator.pushNamed(context, 'hm');
-                  } catch (e) {
-                    if (e is FirebaseAuthException) {
-                      if (e.code == 'user-not-found') {
-                        showSnackbar(context, 'No user found for that email.');
-                      } else if (e.code == 'wrong-password') {
-                        showSnackbar(
-                            context, 'Wrong password provided for that user.');
-                      } else {
-                        showSnackbar(context,
-                            'Firebase Authentication Error: ${e.code}');
-                      }
-                    } else {
-                      showSnackbar(context, 'There was an error: $e');
+                  } on FirebaseAuthException catch (e) {
+                    if (e.code == 'user-not-found') {
+                      showSnackbar(context, 'No user found for that email.');
+                    } else if (e.code == 'wrong-password') {
+                      showSnackbar(
+                          context, 'Wrong password provided for that user.');
+                      //print('Wrong password provided for that user.');
                     }
+                  } catch (e) {
+                    showSnackbar(context, 'there was an error');
                   }
                   Isloading = false;
                   setState(() {});

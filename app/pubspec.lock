@@ -57,6 +57,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.8"
+  curved_navigation_bar:
+    dependency: "direct main"
+    description:
+      name: curved_navigation_bar
+      sha256: bb4ab128fcb6f4a9f0f1f72d227db531818b20218984789777f049fcbf919279
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.6"
   dots_indicator:
     dependency: "direct dev"
     description:
@@ -304,6 +312,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
+  searchfield:
+    dependency: "direct main"
+    description:
+      name: searchfield
+      sha256: "913bb61f42d47d82c1adb67047fff3b26dcf6a199f71ecdc9af27c506dda4b48"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.9"
   shared_preferences:
     dependency: "direct dev"
     description:
