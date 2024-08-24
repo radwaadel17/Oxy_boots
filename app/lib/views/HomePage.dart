@@ -6,6 +6,10 @@ import 'package:app/Parts/search.dart';
 import 'package:app/Service/builderItem.dart';
 import 'package:app/Service/builderitem2.dart';
 import 'package:app/core/utlis/size%20config%20model.dart';
+import 'package:app/views/Account%20view.dart';
+import 'package:app/views/Cart%20view.dart';
+import 'package:app/views/Favorite.dart';
+import 'package:app/views/Notify%20view.dart';
 import 'package:app/views/test.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
@@ -20,15 +24,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
      int _selectedIndex = 0;
-
-    final suggestions = [
-    'Nike',
-    'Puma',
-    'Under ARMOUR',
-    'Adidas',
-    'Convers'
-    ];
-
+     final List<Widget> pages  = [
+      Account(),
+      FavoriteView(),
+      HomePage(),
+      CartView(),
+      NotifyView(),
+     ];
   @override
   Widget build(BuildContext context) {
  
@@ -39,9 +41,10 @@ class _HomePageState extends State<HomePage> {
         items: const <Widget>[
           Icon(Icons.account_circle_outlined, size: 30, color: Color.fromARGB(255, 84, 84, 84)),
           Icon(Icons.favorite_outline, size: 30, color: Color.fromARGB(255, 84, 84, 84)),
-          Icon(Icons.shopping_cart_outlined, size: 30, color: Color.fromARGB(255, 115, 192, 255)),
+                    Icon(Icons.home_outlined, size: 30, color: Color.fromARGB(255, 115, 192, 255)),
+          Icon(Icons.shopping_cart_outlined, size: 30, color:Color.fromARGB(255, 84, 84, 84) ),
           Icon(Icons.notifications_outlined, size: 30, color: Color.fromARGB(255, 84, 84, 84)),
-          Icon(Icons.home_outlined, size: 30, color: Color.fromARGB(255, 84, 84, 84)),
+
         ],
         color: const Color(0xfff8f9fb),
         buttonBackgroundColor:const Color(0xfff8f9fb),
