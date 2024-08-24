@@ -15,4 +15,11 @@ class ItemModel {
         type: json['brand'],
         img: json['images'][0]);
   }
+  factory ItemModel.fromjsonapi2(json){
+  return ItemModel(
+  Price: json['price'], 
+  txt: 'Best Choice',
+  type: json['title'],
+  img: json['images'][0],);
+  }
 }

@@ -17,12 +17,32 @@ class requestData {
       return[];
     }
   }
+   Future<List<ItemModel>> getDatafromApi2() async {
+    try{
+    Response response =
+    await dio.get('https://dummyjson.com/products/category/sports-accessories');
+    Map<String, dynamic> jsonData = response.data;
+    List<dynamic> jsonDataList = jsonData['products'];
+    List<ItemModel> dataList = getItemLitst2(jsonDataList);
+    return dataList;
+    }catch(e){
+      print(e.toString());
+      return[];
+    }
+  }
 }
 
 List<ItemModel> getItemLitst(List<dynamic> json) {
   List<ItemModel> list = [];
   for (int i = 0; i < json.length; i++) {
     list.add(ItemModel.fromjson(json[i]));
+  }
+  return list;
+}
+List<ItemModel> getItemLitst2(List<dynamic> json) {
+  List<ItemModel> list = [];
+  for (int i = 0; i < json.length; i++) {
+    list.add(ItemModel.fromjsonapi2(json[i]));
   }
   return list;
 }

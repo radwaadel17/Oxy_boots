@@ -51,7 +51,7 @@ class NewArrivalscontainer extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Image(image: AssetImage(item.img)),
+                  Image(image: NetworkImage(item.img)),
                 ],
               ),
             ),
