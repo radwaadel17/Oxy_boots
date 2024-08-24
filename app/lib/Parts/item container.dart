@@ -1,5 +1,7 @@
+import 'package:app/cubits/favourite%20cubit/favCubit.dart';
 import 'package:app/models/item%20model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class itemConatiner extends StatelessWidget {
   const itemConatiner({super.key, required this.item});
@@ -67,6 +69,7 @@ class itemConatiner extends StatelessWidget {
             height: 45,
             child: GestureDetector(
               onTap: () {
+                BlocProvider.of<FavouriteCubit>(context).addFav(item);
                 Navigator.pushNamed(context, 'fav');
               },
               child: Image.asset('assets/Group 107.png'),

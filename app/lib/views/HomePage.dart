@@ -6,6 +6,7 @@ import 'package:app/Parts/search.dart';
 import 'package:app/Service/builderItem.dart';
 import 'package:app/Service/builderitem2.dart';
 import 'package:app/core/utlis/size%20config%20model.dart';
+import 'package:app/cubits/favourite%20cubit/favCubit.dart';
 import 'package:app/views/Account%20view.dart';
 import 'package:app/views/Cart%20view.dart';
 import 'package:app/views/Favorite.dart';
@@ -13,41 +14,45 @@ import 'package:app/views/Notify%20view.dart';
 import 'package:app/views/test.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:searchfield/searchfield.dart';
 
 class HomePage extends StatefulWidget {
-   HomePage({super.key});
+  HomePage({super.key});
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-     int _selectedIndex = 0;
-     final List<Widget> pages  = [
-      Account(),
-      FavoriteView(),
-      HomePage(),
-      CartView(),
-      NotifyView(),
-     ];
+  int _selectedIndex = 0;
+  final List<Widget> pages = [
+    Account(),
+    FavoriteView(),
+    HomePage(),
+    CartView(),
+    NotifyView(),
+  ];
   @override
   Widget build(BuildContext context) {
- 
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         index: _selectedIndex,
         height: 60.0,
         items: const <Widget>[
-          Icon(Icons.account_circle_outlined, size: 30, color: Color.fromARGB(255, 84, 84, 84)),
-          Icon(Icons.favorite_outline, size: 30, color: Color.fromARGB(255, 84, 84, 84)),
-                    Icon(Icons.home_outlined, size: 30, color: Color.fromARGB(255, 115, 192, 255)),
-          Icon(Icons.shopping_cart_outlined, size: 30, color:Color.fromARGB(255, 84, 84, 84) ),
-          Icon(Icons.notifications_outlined, size: 30, color: Color.fromARGB(255, 84, 84, 84)),
-
+          Icon(Icons.account_circle_outlined,
+              size: 30, color: Color.fromARGB(255, 84, 84, 84)),
+          Icon(Icons.favorite_outline,
+              size: 30, color: Color.fromARGB(255, 84, 84, 84)),
+          Icon(Icons.home_outlined,
+              size: 30, color: Color.fromARGB(255, 115, 192, 255)),
+          Icon(Icons.shopping_cart_outlined,
+              size: 30, color: Color.fromARGB(255, 84, 84, 84)),
+          Icon(Icons.notifications_outlined,
+              size: 30, color: Color.fromARGB(255, 84, 84, 84)),
         ],
         color: const Color(0xfff8f9fb),
-        buttonBackgroundColor:const Color(0xfff8f9fb),
+        buttonBackgroundColor: const Color(0xfff8f9fb),
         backgroundColor: Colors.white,
         animationCurve: Curves.easeInOut,
         animationDuration: Duration(milliseconds: 300),
@@ -111,41 +116,16 @@ class _HomePageState extends State<HomePage> {
       ),
       body: CustomScrollView(
         slivers: [
-           const SliverToBoxAdapter(
-           child:  SearchContainer(),
-           ),
-           SliverToBoxAdapter(
+          const SliverToBoxAdapter(
+            child: SearchContainer(),
+          ),
+          SliverToBoxAdapter(
             child: SizedBox(
               height: SizeConfig.defaultSize! * 3,
-            ) ,
-           ),
-           const SliverToBoxAdapter(
-            child: BrandsIcon(),
-           ),
-           const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Popular Shoes' ,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ), 
-                  ),
-                  Text('See all' , 
-                  style: TextStyle(
-                    color: Colors.blue,
-                  ),
-                  ),
-                ],
-              ),
             ),
-           ),
+          ),
           const SliverToBoxAdapter(
-            child:Builderitem(),
+            child: BrandsIcon(),
           ),
           const SliverToBoxAdapter(
             child: Padding(
@@ -153,22 +133,51 @@ class _HomePageState extends State<HomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('New Arrivals' ,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ), 
+                  Text(
+                    'Popular Shoes',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                  Text('See all' , 
-                  style: TextStyle(
-                    color: Colors.blue,
-                  ),
+                  Text(
+                    'See all',
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
                   ),
                 ],
               ),
             ),
-           ),
+          ),
+          const SliverToBoxAdapter(
+            child: Builderitem(),
+          ),
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'New Arrivals',
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    'See all',
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           const SliverToBoxAdapter(
             child: Builderitem2(),
           )
