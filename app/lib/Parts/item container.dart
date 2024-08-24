@@ -42,7 +42,7 @@ class itemConatiner extends StatelessWidget {
                   item.Price,
                   style: TextStyle(
                     color: const Color.fromARGB(255, 39, 39, 39),
-                    fontSize: 20,
+                    fontSize: 15,
                     // fontWeight: FontWeight.bold
                   ),
                 ),
@@ -56,7 +56,11 @@ class itemConatiner extends StatelessWidget {
         right: 10,
         child: SizedBox(
           height: 45,
-          child: Image.asset('assets/Group 107.png')),
+          child: GestureDetector(
+            onTap: (){
+              Navigator.pushNamed(context , 'fav');
+            },
+            child: Image.asset('assets/Group 107.png'))),
       )
     ],
     );

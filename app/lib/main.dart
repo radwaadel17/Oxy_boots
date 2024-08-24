@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:app/core/utlis/size%20config%20model.dart';
 import 'package:app/firebase_options.dart';
+import 'package:app/views/Favorite.dart';
 import 'package:app/views/HomePage.dart';
 import 'package:app/views/Intro%20view.dart';
 import 'package:app/views/Sign%20in.dart';
@@ -42,6 +43,7 @@ class shoesStore extends StatelessWidget {
           'signin': (context) => signIn(),
           'signup': (context) => signUp(),
           'hm': (context) => HomePage(),
+          'fav' :(context) => FavoriteView(),
         },
         debugShowCheckedModeBanner: false,
         home: const introPage(),
