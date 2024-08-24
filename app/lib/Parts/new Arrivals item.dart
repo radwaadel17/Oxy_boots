@@ -7,18 +7,18 @@ class NewArrivalsItem extends StatelessWidget {
   const NewArrivalsItem({super.key});
   final List<ItemModel> ListModel = const [
     ItemModel(
-        Price: '493.50',
+        Price: 493.50,
         txt: 'Best Choice',
         type: 'Nike Jordan',
         img: 'assets/Frame 294.png'),
     ItemModel(
-      Price: '250.00',
+      Price: 250.00,
       txt: 'Best Choice',
       type: 'Nike',
       img: 'assets/Frame.png',
     ),
     ItemModel(
-      Price: '493.5',
+      Price: 493.5,
       txt: 'Best Choice',
       type: 'Nike Air Max',
       img: 'assets/Frame 250.png',

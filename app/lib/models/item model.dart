@@ -1,7 +1,7 @@
 class ItemModel {
   final String txt;
   final String type;
-  final String Price;
+  final double Price;
   final String img;
   const ItemModel(
       {required this.Price,

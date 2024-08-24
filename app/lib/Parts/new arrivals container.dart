@@ -43,7 +43,7 @@ class NewArrivalscontainer extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        item.Price,
+                        '${item.Price}',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.black,

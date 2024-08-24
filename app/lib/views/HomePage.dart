@@ -3,6 +3,7 @@ import 'package:app/Parts/new%20arrivals%20container.dart';
 import 'package:app/Parts/brands%20icon%20Scroll.dart';
 import 'package:app/Parts/popular%20item.dart';
 import 'package:app/Parts/search.dart';
+import 'package:app/Service/builderItem.dart';
 import 'package:app/core/utlis/size%20config%20model.dart';
 import 'package:app/views/test.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -140,7 +141,7 @@ class _HomePageState extends State<HomePage> {
             ),
            ),
           const SliverToBoxAdapter(
-            child: PopularItem(),
+            child:Builderitem(),
           ),
           const SliverToBoxAdapter(
             child: Padding(
