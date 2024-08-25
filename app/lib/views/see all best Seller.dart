@@ -1,37 +1,39 @@
 import 'package:app/Parts/item%20container.dart';
 import 'package:app/Parts/itemInseeall.dart';
-import 'package:app/cubits/favourite%20cubit/favCubit.dart';
-import 'package:app/cubits/favourite%20cubit/favStates.dart';
+import 'package:app/models/item%20model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class FavoriteView extends StatelessWidget {
-  const FavoriteView({super.key});
+class SeeAllBestSellers extends StatelessWidget {
+  const SeeAllBestSellers({super.key , required this.models});
+ final List<ItemModel> models ;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xfff8f9fb),
       appBar: AppBar(
         backgroundColor: const Color(0xfff8f9fb),
-
         title: const Center(
           child: Text(
-            'Favourite',
+            'Best Sellers',
             style: TextStyle(
+              fontSize: 18,
               fontWeight: FontWeight.bold,
             ),
           ),
         ),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Icon(Icons.favorite_border_outlined),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child:
+                SizedBox(height: 25, child: Image.asset('assets/Filter.png')),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Icon(Icons.search),
           ),
         ],
       ),
-      body: BlocBuilder<FavouriteCubit, FavState>(builder: (context, state) {
-        if (state is FavLoaded) {
-          return GridView.builder(
+      backgroundColor: const Color(0xfff8f9fb),
+      body: GridView.builder(
             padding: const EdgeInsets.all(16.0),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
@@ -39,16 +41,12 @@ class FavoriteView extends StatelessWidget {
               crossAxisSpacing: 16.0,
               mainAxisSpacing: 16.0,
             ),
-            itemCount: state.favs.length,
+            itemCount: models.length,
             itemBuilder: (context, index) {
-              final item = state.favs[index];
+              final item = models[index];
               return itemConatinerall(item: item);
             },
-          );
-        } else {
-          return const Center(child: Text('No favorites added yet.'));
-        }
-      }),
+          ),
     );
   }
 }

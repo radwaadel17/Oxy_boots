@@ -37,7 +37,7 @@ class NewArrivalscontainer extends StatelessWidget {
                       Text(
                         item.type,
                         style: TextStyle(
-                          fontSize: 20,
+                          fontSize: 15,
                           color: Colors.black,
                           fontWeight: FontWeight.bold
                         ),

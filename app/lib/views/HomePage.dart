@@ -25,11 +25,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
   final List<Widget> pages = [
     Account(),
     FavoriteView(),
-    HomePage(),
+    homepagebody(),
     CartView(),
     NotifyView(),
   ];
@@ -114,75 +114,63 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      body: CustomScrollView(
-        slivers: [
-          const SliverToBoxAdapter(
-            child: SearchContainer(),
+      body: pages[_selectedIndex],
+    );
+  }
+}
+
+class homepagebody extends StatelessWidget {
+  const homepagebody({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return CustomScrollView(
+      slivers: [
+        const SliverToBoxAdapter(
+          child: SearchContainer(),
+        ),
+        SliverToBoxAdapter(
+          child: SizedBox(
+            height: SizeConfig.defaultSize! * 3,
           ),
-          SliverToBoxAdapter(
-            child: SizedBox(
-              height: SizeConfig.defaultSize! * 3,
+        ),
+        const SliverToBoxAdapter(
+          child: BrandsIcon(),
+        ),
+        
+        const SliverToBoxAdapter(
+          child: Builderitem(),
+        ),
+        const SliverToBoxAdapter(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'New Arrivals',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                Text(
+                  'See all',
+                  style: TextStyle(
+                    color: Colors.blue,
+                  ),
+                ),
+              ],
             ),
           ),
-          const SliverToBoxAdapter(
-            child: BrandsIcon(),
-          ),
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Popular Shoes',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    'See all',
-                    style: TextStyle(
-                      color: Colors.blue,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: Builderitem(),
-          ),
-          const SliverToBoxAdapter(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'New Arrivals',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  Text(
-                    'See all',
-                    style: TextStyle(
-                      color: Colors.blue,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          const SliverToBoxAdapter(
-            child: Builderitem2(),
-          )
-        ],
-      ),
+        ),
+        const SliverToBoxAdapter(
+          child: Builderitem2(),
+        )
+      ],
     );
   }
 }

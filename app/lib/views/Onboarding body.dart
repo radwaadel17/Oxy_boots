@@ -38,6 +38,8 @@ late PageController _pageController;
   Widget build(BuildContext context) {
     final currentPage = _pageController.hasClients ? _pageController.page ?? 0 : 0;
     return Scaffold(
+            backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+
       body: Stack(
         children: [
           OnboardingBuilder(Controller_id:  _pageController),

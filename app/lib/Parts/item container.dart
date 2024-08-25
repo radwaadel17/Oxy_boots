@@ -38,7 +38,7 @@ class itemConatiner extends StatelessWidget {
                     item.txt,
                     style: TextStyle(
                       color: Colors.blue,
-                      fontSize: 20,
+                      fontSize: 15,
                       fontWeight: FontWeight.w300,
                     ),
                   ),
@@ -46,7 +46,7 @@ class itemConatiner extends StatelessWidget {
                     item.type,
                     style: TextStyle(
                       color: const Color.fromARGB(255, 34, 34, 34),
-                      fontSize: 20,
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
