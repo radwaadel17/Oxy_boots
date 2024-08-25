@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:app/core/utlis/size%20config%20model.dart';
+import 'package:app/cubits/cart%20cubit.dart/cartCubit.dart';
 import 'package:app/cubits/favourite%20cubit/favCubit.dart';
 import 'package:app/firebase_options.dart';
 import 'package:app/views/Favorite.dart';
@@ -38,8 +39,15 @@ class shoesStore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    return BlocProvider(
-      create: (context) => FavouriteCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => FavouriteCubit(),
+        ),
+        BlocProvider(
+          create: (context) => Cartcubit(),
+        ),
+      ],
       child: ScreenUtilInit(
         designSize: Size(360, 690),
         minTextAdapt: true,
@@ -51,7 +59,7 @@ class shoesStore extends StatelessWidget {
             'hm': (context) => HomePage(),
             'fav': (context) => FavoriteView(),
             //'seeall1':(context) => SeeAllBestSellers(),
-           // 'hs':(context) => HomeScreen(),
+            // 'hs':(context) => HomeScreen(),
           },
           debugShowCheckedModeBanner: false,
           home: const introPage(),

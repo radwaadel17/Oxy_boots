@@ -36,7 +36,7 @@ class itemConatiner extends StatelessWidget {
                   ),
                   Text(
                     item.txt,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.blue,
                       fontSize: 15,
                       fontWeight: FontWeight.w300,
@@ -44,16 +44,16 @@ class itemConatiner extends StatelessWidget {
                   ),
                   Text(
                     item.type,
-                    style: TextStyle(
-                      color: const Color.fromARGB(255, 34, 34, 34),
+                    style: const TextStyle(
+                      color: Color.fromARGB(255, 34, 34, 34),
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   Text(
                     '${item.Price}',
-                    style: TextStyle(
-                      color: const Color.fromARGB(255, 39, 39, 39),
+                    style: const TextStyle(
+                      color: Color.fromARGB(255, 39, 39, 39),
                       fontSize: 15,
                     ),
                   ),

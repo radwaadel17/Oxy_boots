@@ -1,7 +1,10 @@
 import 'package:app/core/utlis/size%20config%20model.dart';
+import 'package:app/cubits/cart%20cubit.dart/cartCubit.dart';
 import 'package:app/models/item%20model.dart';
+import 'package:app/views/Cart%20view.dart';
 import 'package:app/views/test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ItemDetails extends StatefulWidget {
   const ItemDetails({super.key, required this.item});
@@ -23,11 +26,18 @@ class _ItemDetailsState extends State<ItemDetails> {
         actions: [
            SizedBox(
                 height: 45,
-                child: Image.asset('assets/Group 27.png'),
+                child: GestureDetector(
+                  onTap: (){
+                    Navigator.push(context, MaterialPageRoute(builder: (context){
+                      return CartView();
+                    }));
+                  },
+                  child: SizedBox(
+                    height: 210,
+                    child: Image.asset('assets/Group 27.png'))),
               ),
         ],
         
-          
         title: Padding(
           padding: const EdgeInsets.only(left: 25),
           child: const Center(
@@ -431,13 +441,13 @@ class _ItemDetailsState extends State<ItemDetails> {
             height: 15,
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
+            padding: EdgeInsets.symmetric(horizontal: 24),
             child: Row(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Row(
+                     Row(
                       children: [
                         Text(
                           'Price',
@@ -468,9 +478,14 @@ class _ItemDetailsState extends State<ItemDetails> {
                   ],
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 99),
+                  padding: EdgeInsets.only(left: 99),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      BlocProvider.of<Cartcubit>(context).addItem(widget.item);
+                      Navigator.push(context, MaterialPageRoute(builder: (context){
+                         return CartView();
+                      }));
+                    },
                     child: Text(
                       'Add to cart',
                       style: TextStyle(
