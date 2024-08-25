@@ -108,7 +108,11 @@ class _HomePageState extends State<HomePage> {
               Spacer(),
               SizedBox(
                 height: 45,
-                child: Image.asset('assets/Group 27.png'),
+                child: GestureDetector(
+                  onTap: () => Navigator.push(context , MaterialPageRoute(builder: (context){
+                    return CartView();
+                  })),
+                  child: Image.asset('assets/Group 27.png')),
               ),
             ],
           ),

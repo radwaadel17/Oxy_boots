@@ -1,6 +1,6 @@
 import 'package:app/Parts/customBoardingButton.dart';
 import 'package:app/core/utlis/size%20config%20model.dart';
-import 'package:app/views/Onboarding%20Builder.dart';
+import 'package:app/Parts/Onboarding%20Builder.dart';
 import 'package:flutter/material.dart';
 
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';

@@ -1,3 +1,5 @@
+import 'package:app/views/Sign%20in.dart';
+import 'package:app/views/Sign%20up.dart';
 import 'package:flutter/material.dart';
 
 class Account extends StatelessWidget {
@@ -6,7 +8,14 @@ class Account extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      body: Container(
+        child: Column(
+          children: [
+            Text('$name'),
+            Text('$email'),
+          ],
+        ),
+      ),
     );
   }
 }

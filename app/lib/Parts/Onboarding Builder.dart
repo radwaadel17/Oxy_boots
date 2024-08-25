@@ -1,5 +1,5 @@
 import 'package:app/models/photo%20slide%20model.dart';
-import 'package:app/views/BoardUI.dart';
+import 'package:app/Parts/BoardUI.dart';
 import 'package:flutter/material.dart';
 
 

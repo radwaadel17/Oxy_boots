@@ -21,7 +21,6 @@ class _ItemDetailsState extends State<ItemDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 2,
         backgroundColor: const Color(0xfff8f9fb),
         actions: [
            SizedBox(

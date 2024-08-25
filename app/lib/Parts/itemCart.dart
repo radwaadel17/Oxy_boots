@@ -9,17 +9,21 @@ class ItemCart extends StatefulWidget {
   @override
   State<ItemCart> createState() => _ItemCartState();
 }
-
-List<int> Sizes = [37, 38, 39, 40, 41, 42];
-
 class _ItemCartState extends State<ItemCart> {
-  int index = 1;
+   int index = 1;
+  double totalSum = 0;
+  @override
+  void initState() {
+    super.initState();
+     totalSum = widget.item.Price;
+
+  }
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         Container(
-          height: 100,
+          height: 120,
           width: 335,
           decoration: const BoxDecoration(
             color: Color(0xfff8f9fb),
@@ -29,8 +33,8 @@ class _ItemCartState extends State<ItemCart> {
             child: Row(
               children: [
                 Container(
-                    height: 85,
-                    width: 87,
+                    height: 90,
+                    width: 90,
                     decoration: BoxDecoration(
                         image: DecorationImage(
                             image: NetworkImage(widget.item.img)),
@@ -51,7 +55,7 @@ class _ItemCartState extends State<ItemCart> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
-                        '\$${widget.item.Price * index}',
+                        '\$${(widget.item.Price * index).toStringAsFixed(2)}',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -68,10 +72,7 @@ class _ItemCartState extends State<ItemCart> {
                             padding: EdgeInsets.only(left: 10, top: 5),
                             child: GestureDetector(
                               onTap: () {
-                                if (index >= 2) {
-                                  index = index - 1;
-                                  setState(() {});
-                                }
+                                _decrementIndex();
                               },
                               child: Image(
                                   image: AssetImage('assets/Group 61.png')),
@@ -94,9 +95,7 @@ class _ItemCartState extends State<ItemCart> {
                             padding: EdgeInsets.only(left: 16, top: 5),
                             child: GestureDetector(
                               onTap: () {
-                                index = index + 1;
-
-                                setState(() {});
+                               _incrementIndex();
                               },
                               child: Image(
                                   image: AssetImage('assets/Group 60.png')),
@@ -112,14 +111,34 @@ class _ItemCartState extends State<ItemCart> {
           ),
         ),
         Positioned(
-          right: 0,
-          top: 0,
-          child: IconButton(
-            icon: Icon(Icons.delete, color: Colors.red),
-            onPressed: widget.onremove, // Call the callback to remove item
-          ),
+          right: 20,
+          bottom: 15,
+          child: GestureDetector(
+            onTap: widget.onremove,
+            child: SizedBox(
+              height: 25,
+              child: Image(image: AssetImage('assets/remove.png')))),
         ),
+          
       ],
+
     );
   }
+  void _updateTotalSum() {
+    totalSum = widget.item.Price * index;
+    setState(() {});
+  }
+
+  void _incrementIndex() {
+    index++;
+    _updateTotalSum();
+  }
+
+  void _decrementIndex() {
+    if (index > 1) {
+      index--;
+      _updateTotalSum();
+    }
+  }
 }
+

@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
+String? email;
+String? password;
 class signIn extends StatefulWidget {
   const signIn({super.key});
 
@@ -12,12 +14,18 @@ class signIn extends StatefulWidget {
   State<signIn> createState() => _signInState();
 }
 
-String? email;
-String? password;
 bool Isloading = false;
 bool Iscorrect = true;
 
 class _signInState extends State<signIn> {
+  bool _obscureText = true;
+
+  void _togglePasswordView() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -65,11 +73,47 @@ class _signInState extends State<signIn> {
             const SizedBox(
               height: 40,
             ),
-            TextFielddesign(
-              onChanged: (data) {
-                password = data;
-              },
-              txt: 'Password',
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  child: Text(
+                    'Password',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15 , vertical: 5),
+                    width: 335,
+                    height: 48,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: TextField(
+                      onChanged: (data) {
+                        password = data;
+                      },
+                      obscureText: _obscureText,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        contentPadding: EdgeInsets.zero,
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _obscureText
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: _togglePasswordView,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(
               height: 5,

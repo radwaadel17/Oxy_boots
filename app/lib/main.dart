@@ -6,6 +6,7 @@ import 'package:app/firebase_options.dart';
 import 'package:app/views/Favorite.dart';
 import 'package:app/views/HomePage.dart';
 import 'package:app/views/Intro%20view.dart';
+import 'package:app/views/Recovery%20view.dart';
 import 'package:app/views/Sign%20in.dart';
 import 'package:app/views/Sign%20up.dart';
 import 'package:app/views/item%20view.dart';
@@ -58,6 +59,7 @@ class shoesStore extends StatelessWidget {
             'signup': (context) => signUp(),
             'hm': (context) => HomePage(),
             'fav': (context) => FavoriteView(),
+           // 'rec' :(context) =>revcoveryPage(cont: cont)
             //'seeall1':(context) => SeeAllBestSellers(),
             // 'hs':(context) => HomeScreen(),
           },
