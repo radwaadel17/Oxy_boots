@@ -1,13 +1,16 @@
+import 'package:app/cubits/total%20sum%20cubit/sumCubit.dart';
 import 'package:app/models/item%20model.dart';
 import 'package:app/views/item%20view.dart';
 import 'package:flutter/material.dart';
-Map<int , double > totalPriceMap = {};
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 
 class ItemCart extends StatefulWidget {
   const ItemCart({super.key, required this.item , required this.onremove , required this.itemIndex});
   final ItemModel item;
   final VoidCallback onremove;
   final int itemIndex ;
+  
 
   @override
   State<ItemCart> createState() => _ItemCartState();
@@ -15,33 +18,30 @@ class ItemCart extends StatefulWidget {
 class _ItemCartState extends State<ItemCart> {
   int index = 1;
   double totalSum = 0;
-  double total = 0.0 ;
   @override
   void initState() {
     super.initState();
      totalSum = widget.item.Price;
-     totalPriceMap[widget.itemIndex]  = widget.item.Price;
-  }
-  void _updateTotalSum() {
-    totalSum = widget.item.Price * index;
-    totalPriceMap[widget.itemIndex]  = totalSum ;
-    setState(() {});
+    BlocProvider.of<CartTotalCubit>(context).add(widget.item.Price , widget.itemIndex);
   }
 
   void _incrementIndex() {
     index++;
-    _updateTotalSum();
+    totalSum = widget.item.Price * index;
+    BlocProvider.of<CartTotalCubit>(context).add(totalSum , widget.itemIndex);
+    setState(() {});
   }
 
   void _decrementIndex() {
     if (index > 1) {
       index--;
-      _updateTotalSum();
     }
+    totalSum = widget.item.Price * index;
+    BlocProvider.of<CartTotalCubit>(context).add(totalSum , widget.itemIndex);
+    setState(() {});
   }
   @override
   Widget build(BuildContext context) {
-    print(totalPriceMap);
     return Stack(
       children: [
         Container(

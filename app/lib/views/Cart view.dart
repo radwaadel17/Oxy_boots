@@ -2,6 +2,8 @@ import 'package:app/Parts/itemCart.dart';
 import 'package:app/Service/getData.dart';
 import 'package:app/cubits/cart%20cubit.dart/cartCubit.dart';
 import 'package:app/cubits/cart%20cubit.dart/cartState.dart';
+import 'package:app/cubits/total%20sum%20cubit/states.dart';
+import 'package:app/cubits/total%20sum%20cubit/sumCubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -46,7 +48,8 @@ class _CartViewState extends State<CartView> {
                           onremove: () {
                             BlocProvider.of<Cartcubit>(context)
                                 .removeItem(index);
-                            totalPriceMap.remove(index);
+                            BlocProvider.of<CartTotalCubit>(context)
+                                .removeItem(index);
                           },
                           itemIndex: index,
                         );
@@ -64,15 +67,34 @@ class _CartViewState extends State<CartView> {
                           color: Color(0xff707B81),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 126),
-                        child: Text(
-                          '\$${total.toStringAsFixed(2)}',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
+                      BlocBuilder<CartTotalCubit, MainState>(
+                        builder: (context, state) {
+                          if(state is SumState){
+                           return Padding(
+                            padding: const EdgeInsets.only(left: 126),
+                            child: Text(
+                              '\$${state.result.toStringAsFixed(2)}',
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          );
+                          }
+                          else {
+                            return const Padding(
+                            padding: EdgeInsets.only(left: 126),
+                            child: Text(
+                              '\$0.0',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                          );
+                          }
+                        
+                        },
                       ),
                     ],
                   ),
@@ -105,7 +127,8 @@ class _CartViewState extends State<CartView> {
                   height: 5,
                 ),
                 Divider(
-                  color: const Color.fromARGB(255, 188, 188, 188).withOpacity(0.8),
+                  color:
+                      const Color.fromARGB(255, 188, 188, 188).withOpacity(0.8),
                   height: 1,
                   thickness: 1,
                   indent: 40,
@@ -122,15 +145,32 @@ class _CartViewState extends State<CartView> {
                           fontSize: 16,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 110),
-                        child: Text(
-                          '\$${(total + 40).toStringAsFixed(2)} ',
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
+                      BlocBuilder<CartTotalCubit, MainState>(
+                        builder: (context, state) {
+                          if (state is SumState) {
+                            return Padding(
+                              padding: const EdgeInsets.only(left: 110),
+                              child: Text(
+                                '\$${(state.result + 40).toStringAsFixed(2)}',
+                                style: const TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            );
+                          } else {
+                            return const Padding(
+                              padding: EdgeInsets.only(left: 110),
+                              child: Text(
+                                '\$0.0',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),
@@ -139,14 +179,7 @@ class _CartViewState extends State<CartView> {
                   height: 5,
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    ch = true;
-                    total = 0;
-                    totalPriceMap.forEach((key, value) {
-                      total += value;
-                    });
-                    setState(() {});
-                  },
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     fixedSize: Size(335, 54),
                     backgroundColor: Color(0xff5B9EE1),

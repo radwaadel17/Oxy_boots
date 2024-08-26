@@ -134,7 +134,7 @@ class containerNotfication extends StatelessWidget {
                   txt1,
                   maxLines: 2,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -173,10 +173,10 @@ class containerNotfication extends StatelessWidget {
             ],
           ),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 35),
+            padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Row(
               children: [
-                Text(date),
+                Text(date , style: TextStyle(fontSize: 10),),
               ],
             ),
           ),

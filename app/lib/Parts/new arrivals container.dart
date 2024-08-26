@@ -54,7 +54,7 @@ class NewArrivalscontainer extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 60),
                     child: SizedBox(
-                      height: 85,
+                      height: 60,
                       child: Image(image: NetworkImage(item.img))),
                   ),
                 ],
