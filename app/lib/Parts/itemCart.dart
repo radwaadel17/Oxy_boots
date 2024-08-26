@@ -1,25 +1,47 @@
 import 'package:app/models/item%20model.dart';
 import 'package:app/views/item%20view.dart';
 import 'package:flutter/material.dart';
+Map<int , double > totalPriceMap = {};
 
 class ItemCart extends StatefulWidget {
-  const ItemCart({super.key, required this.item , required this.onremove});
+  const ItemCart({super.key, required this.item , required this.onremove , required this.itemIndex});
   final ItemModel item;
   final VoidCallback onremove;
+  final int itemIndex ;
+
   @override
   State<ItemCart> createState() => _ItemCartState();
 }
 class _ItemCartState extends State<ItemCart> {
-   int index = 1;
+  int index = 1;
   double totalSum = 0;
+  double total = 0.0 ;
   @override
   void initState() {
     super.initState();
      totalSum = widget.item.Price;
+     totalPriceMap[widget.itemIndex]  = widget.item.Price;
+  }
+  void _updateTotalSum() {
+    totalSum = widget.item.Price * index;
+    totalPriceMap[widget.itemIndex]  = totalSum ;
+    setState(() {});
+  }
 
+  void _incrementIndex() {
+    index++;
+    _updateTotalSum();
+  }
+
+  void _decrementIndex() {
+    if (index > 1) {
+      index--;
+      _updateTotalSum();
+    }
   }
   @override
   Widget build(BuildContext context) {
+    print(totalPriceMap);
     return Stack(
       children: [
         Container(
@@ -119,26 +141,12 @@ class _ItemCartState extends State<ItemCart> {
               height: 25,
               child: Image(image: AssetImage('assets/remove.png')))),
         ),
-          
+        
+         
       ],
-
+    
     );
   }
-  void _updateTotalSum() {
-    totalSum = widget.item.Price * index;
-    setState(() {});
-  }
-
-  void _incrementIndex() {
-    index++;
-    _updateTotalSum();
-  }
-
-  void _decrementIndex() {
-    if (index > 1) {
-      index--;
-      _updateTotalSum();
-    }
-  }
+  
 }
 

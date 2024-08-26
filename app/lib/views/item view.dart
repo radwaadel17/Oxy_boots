@@ -1,3 +1,4 @@
+import 'package:app/Parts/itemCart.dart';
 import 'package:app/core/utlis/size%20config%20model.dart';
 import 'package:app/cubits/cart%20cubit.dart/cartCubit.dart';
 import 'package:app/models/item%20model.dart';
@@ -480,6 +481,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                   padding: EdgeInsets.only(left: 99),
                   child: ElevatedButton(
                     onPressed: () {
+                      totalPriceMap.clear();
                       BlocProvider.of<Cartcubit>(context).addItem(widget.item);
                       Navigator.push(context, MaterialPageRoute(builder: (context){
                          return CartView();
@@ -498,7 +500,6 @@ class _ItemDetailsState extends State<ItemDetails> {
                     ),
                   ),
                 ),
-
               ],
             ),
           ),

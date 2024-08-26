@@ -13,12 +13,13 @@ class CartView extends StatefulWidget {
 }
 
 class _CartViewState extends State<CartView> {
+  double total = 0;
+  bool ch = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-              backgroundColor: const Color(0xfff8f9fb),
+      backgroundColor: const Color(0xfff8f9fb),
       appBar: AppBar(
-       
         backgroundColor: const Color(0xfff8f9fb),
         title: Padding(
           padding: const EdgeInsets.only(right: 40),
@@ -40,32 +41,141 @@ class _CartViewState extends State<CartView> {
                   child: ListView.builder(
                       itemCount: state.dataCart.length,
                       itemBuilder: (context, index) {
-                        return ItemCart(item: state.dataCart[index] ,
-                        onremove: (){
-                          BlocProvider.of<Cartcubit>(context).removeItem(index);
-                         },
+                        return ItemCart(
+                          item: state.dataCart[index],
+                          onremove: () {
+                            BlocProvider.of<Cartcubit>(context)
+                                .removeItem(index);
+                            totalPriceMap.remove(index);
+                          },
+                          itemIndex: index,
                         );
                       }),
                 ),
-                ElevatedButton(onPressed: (){} 
-                , child: Text('checkout' , 
-                style: TextStyle(
-                  fontSize: 18 , 
-                  color: Colors.white,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 38, vertical: 5),
+                  child: Row(
+                    children: [
+                      const Text(
+                        'Subtotal',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                          color: Color(0xff707B81),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 126),
+                        child: Text(
+                          '\$${total.toStringAsFixed(2)}',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 38, vertical: 5),
+                  child: Row(
+                    children: [
+                      Text(
+                        'Shopping',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                            color: Color(0xff707B81)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 117),
+                        child: Text(
+                          '\$40',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(335, 54),
-                  backgroundColor: Color(0xff5B9EE1),
+                const SizedBox(
+                  height: 5,
                 ),
+                Divider(
+                  color: const Color.fromARGB(255, 188, 188, 188).withOpacity(0.8),
+                  height: 1,
+                  thickness: 1,
+                  indent: 40,
+                  endIndent: 40,
                 ),
-                SizedBox(height: 30,),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 38, vertical: 5),
+                  child: Row(
+                    children: [
+                      const Text(
+                        'ToTal Cost',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 110),
+                        child: Text(
+                          '\$${(total + 40).toStringAsFixed(2)} ',
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    ch = true;
+                    total = 0;
+                    totalPriceMap.forEach((key, value) {
+                      total += value;
+                    });
+                    setState(() {});
+                  },
+                  style: ElevatedButton.styleFrom(
+                    fixedSize: Size(335, 54),
+                    backgroundColor: Color(0xff5B9EE1),
+                  ),
+                  child: ch == false
+                      ? const Text(
+                          'Checkout',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        )
+                      : const Text(
+                          'Payment',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.white,
+                          ),
+                        ),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
               ],
             );
           } else {
             return const Center(child: Text('No items added yet.'));
           }
-        }, 
+        },
       ),
     );
   }

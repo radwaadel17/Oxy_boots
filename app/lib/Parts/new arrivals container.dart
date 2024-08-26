@@ -43,7 +43,7 @@ class NewArrivalscontainer extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        '${item.Price}',
+                        '\$${item.Price}',
                         style: TextStyle(
                           fontSize: 16,
                           color: Colors.black,
@@ -51,7 +51,12 @@ class NewArrivalscontainer extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Image(image: NetworkImage(item.img)),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 60),
+                    child: SizedBox(
+                      height: 85,
+                      child: Image(image: NetworkImage(item.img))),
+                  ),
                 ],
               ),
             ),

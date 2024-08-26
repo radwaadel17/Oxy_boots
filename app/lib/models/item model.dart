@@ -31,8 +31,8 @@ class ItemModel {
   return ItemModel(
   Price: json['price'], 
   txt: 'Best Choice',
-  type: json['title'],
-  img: json['images'][0],
+  type: json['category'],
+  img: json['image'],
   description: json['description'],
   img2: '',
   img3: '',

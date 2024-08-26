@@ -20,13 +20,12 @@ class requestData {
    Future<List<ItemModel>> getDatafromApi2() async {
     try{
     Response response =
-    await dio.get('https://dummyjson.com/products/category/sports-accessories');
-    Map<String, dynamic> jsonData = response.data;
-    List<dynamic> jsonDataList = jsonData['products'];
-    List<ItemModel> dataList = getItemLitst2(jsonDataList);
+    await dio.get("https://fakestoreapi.com/products/category/men's%20clothing");
+    List<dynamic> jsonData = response.data;
+    List<ItemModel> dataList = getItemLitst2(jsonData);
     return dataList;
     }catch(e){
-      print(e.toString());
+      print(e);
       return[];
     }
   }
