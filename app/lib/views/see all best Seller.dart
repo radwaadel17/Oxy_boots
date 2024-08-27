@@ -3,8 +3,8 @@ import 'package:app/Parts/itemInseeall.dart';
 import 'package:app/models/item%20model.dart';
 import 'package:flutter/material.dart';
 
-class SeeAllBestSellers extends StatelessWidget {
-  const SeeAllBestSellers({super.key , required this.models});
+class SeeAll extends StatelessWidget {
+  const SeeAll({super.key , required this.models});
  final List<ItemModel> models ;
   @override
   Widget build(BuildContext context) {

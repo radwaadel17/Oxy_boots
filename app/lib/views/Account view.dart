@@ -11,7 +11,6 @@ class Account extends StatelessWidget {
       body: Container(
         child: Column(
           children: [
-            Text('$name'),
             Text('$email'),
           ],
         ),

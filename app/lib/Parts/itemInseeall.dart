@@ -36,9 +36,12 @@ class itemConatinerall extends StatelessWidget {
                     // Adding a container for the image with a bottom margin
                     Container(
                       margin: const EdgeInsets.only(bottom: 10),
-                      child: Image.network(
-                        item.img,
-                        fit: BoxFit.cover,
+                      child: SizedBox(
+                        height: 110,
+                        child: Image.network(
+                          item.img,
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                     Text(

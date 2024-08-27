@@ -29,7 +29,7 @@ class ItemModel {
   }
   factory ItemModel.fromjsonapi2(json){
   return ItemModel(
-  Price: json['price'], 
+  Price: (json['price'] as num).toDouble(), 
   txt: 'Best Choice',
   type: json['category'],
   img: json['image'],

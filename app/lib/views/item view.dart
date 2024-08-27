@@ -56,7 +56,10 @@ class _ItemDetailsState extends State<ItemDetails> {
       backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: ListView(
         children: [
-          Image.network(widget.item.img),
+          SizedBox(
+            height: 225,
+            width: 311,
+            child: Image.network(widget.item.img)),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Row(

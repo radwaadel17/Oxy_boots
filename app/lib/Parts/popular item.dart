@@ -26,7 +26,7 @@ class PopularItem extends StatelessWidget {
                   GestureDetector(
                     onTap: (){
                       Navigator.push(context, MaterialPageRoute(builder: (context){
-                             return SeeAllBestSellers(models: ListModel);
+                             return SeeAll(models: ListModel);
                       }));
                     },
                     child: Text(

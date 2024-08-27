@@ -4,9 +4,12 @@ import 'package:app/cubits/cart%20cubit.dart/cartCubit.dart';
 import 'package:app/cubits/favourite%20cubit/favCubit.dart';
 import 'package:app/cubits/total%20sum%20cubit/sumCubit.dart';
 import 'package:app/firebase_options.dart';
+import 'package:app/views/Account%20view.dart';
+import 'package:app/views/Cart%20view.dart';
 import 'package:app/views/Favorite.dart';
 import 'package:app/views/HomePage.dart';
 import 'package:app/views/Intro%20view.dart';
+import 'package:app/views/Notify%20view.dart';
 import 'package:app/views/Recovery%20view.dart';
 import 'package:app/views/Sign%20in.dart';
 import 'package:app/views/Sign%20up.dart';
@@ -52,7 +55,6 @@ class shoesStore extends StatelessWidget {
         BlocProvider(
           create: (context) => CartTotalCubit(),
         ),
-
       ],
       child: ScreenUtilInit(
         designSize: Size(360, 690),
@@ -64,10 +66,10 @@ class shoesStore extends StatelessWidget {
             'signup': (context) => signUp(),
             'hm': (context) => HomePage(),
             'fav': (context) => FavoriteView(),
-           // 'rec' :(context) =>revcoveryPage(cont: cont)
-            //'seeall1':(context) => SeeAllBestSellers(),
-            // 'hs':(context) => HomeScreen(),
-          },
+            'prof':(context) => Account(),
+            'not':(context) => NotifyView(),
+            'cart':(context)=> CartView(),
+        },
           debugShowCheckedModeBanner: false,
           home: const introPage(),
         ),

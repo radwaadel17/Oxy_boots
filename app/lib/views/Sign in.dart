@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-String? email;
-String? password;
 class signIn extends StatefulWidget {
   const signIn({super.key});
 
@@ -16,7 +14,8 @@ class signIn extends StatefulWidget {
 
 bool Isloading = false;
 bool Iscorrect = true;
-
+String? email;
+String? password;
 class _signInState extends State<signIn> {
   bool _obscureText = true;
 
@@ -144,7 +143,7 @@ class _signInState extends State<signIn> {
                   try {
                     await loginUser();
                     showSnackbar(context, 'Success Login');
-                    Navigator.pushNamed(context, 'hm');
+                    Navigator.pushReplacementNamed(context, 'hm');
                   } on FirebaseAuthException catch (e) {
                     if (e.code == 'user-not-found') {
                       showSnackbar(context, 'No user found for that email.');

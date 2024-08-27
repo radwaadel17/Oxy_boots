@@ -55,7 +55,19 @@ class _CartViewState extends State<CartView> {
                         );
                       }),
                 ),
-                Padding(
+               
+                Container(
+                  height: 254,
+                  width: double.infinity,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(topLeft:Radius.circular(40)  , topRight: Radius.circular(40)),
+                   
+                  ),
+                  child: Column(
+                    children: [
+                      SizedBox(height: 50,),
+                       Padding(
                   padding: EdgeInsets.symmetric(horizontal: 38, vertical: 5),
                   child: Row(
                     children: [
@@ -99,109 +111,113 @@ class _CartViewState extends State<CartView> {
                     ],
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 38, vertical: 5),
-                  child: Row(
-                    children: [
-                      Text(
-                        'Shopping',
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                            color: Color(0xff707B81)),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(left: 117),
-                        child: Text(
-                          '\$40',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                Divider(
-                  color:
-                      const Color.fromARGB(255, 188, 188, 188).withOpacity(0.8),
-                  height: 1,
-                  thickness: 1,
-                  indent: 40,
-                  endIndent: 40,
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 38, vertical: 5),
-                  child: Row(
-                    children: [
-                      const Text(
-                        'ToTal Cost',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                      BlocBuilder<CartTotalCubit, MainState>(
-                        builder: (context, state) {
-                          if (state is SumState) {
-                            return Padding(
-                              padding: const EdgeInsets.only(left: 110),
-                              child: Text(
-                                '\$${(state.result + 40).toStringAsFixed(2)}',
-                                style: const TextStyle(
+                  
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 38, vertical: 5),
+                        child: Row(
+                          children: [
+                            Text(
+                              'Shopping',
+                              style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
-                                ),
-                              ),
-                            );
-                          } else {
-                            return const Padding(
-                              padding: EdgeInsets.only(left: 110),
+                                  color: Color(0xff707B81)),
+                            ),
+                            Padding(
+                              padding: EdgeInsets.only(left: 117),
                               child: Text(
-                                '\$0.0',
+                                '\$40',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
                                 ),
                               ),
-                            );
-                          }
-                        },
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Divider(
+                        color:
+                            const Color.fromARGB(255, 188, 188, 188).withOpacity(0.8),
+                        height: 1,
+                        thickness: 1,
+                        indent: 40,
+                        endIndent: 40,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 38, vertical: 5),
+                        child: Row(
+                          children: [
+                            const Text(
+                              'ToTal Cost',
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                            ),
+                            BlocBuilder<CartTotalCubit, MainState>(
+                              builder: (context, state) {
+                                if (state is SumState) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(left: 110),
+                                    child: Text(
+                                      '\$${(state.result + 40).toStringAsFixed(2)}',
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  );
+                                } else {
+                                  return const Padding(
+                                    padding: EdgeInsets.only(left: 110),
+                                    child: Text(
+                                      '\$0.0',
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  );
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: Size(335, 54),
+                          backgroundColor: Color(0xff5B9EE1),
+                        ),
+                        child: ch == false
+                            ? const Text(
+                                'Checkout',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const Text(
+                                'Payment',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  color: Colors.white,
+                                ),
+                              ),
+                      ),
+                      const SizedBox(
+                        height: 15,
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 5,
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    fixedSize: Size(335, 54),
-                    backgroundColor: Color(0xff5B9EE1),
-                  ),
-                  child: ch == false
-                      ? const Text(
-                          'Checkout',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        )
-                      : const Text(
-                          'Payment',
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
-                        ),
-                ),
-                const SizedBox(
-                  height: 15,
                 ),
               ],
             );

@@ -1,34 +1,39 @@
+
 import 'package:app/cubits/total%20sum%20cubit/sumCubit.dart';
 import 'package:app/models/item%20model.dart';
 import 'package:app/views/item%20view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-
 class ItemCart extends StatefulWidget {
-  const ItemCart({super.key, required this.item , required this.onremove , required this.itemIndex});
+  const ItemCart(
+      {super.key,
+      required this.item,
+      required this.onremove,
+      required this.itemIndex});
   final ItemModel item;
   final VoidCallback onremove;
-  final int itemIndex ;
-  
+  final int itemIndex;
 
   @override
   State<ItemCart> createState() => _ItemCartState();
 }
+
 class _ItemCartState extends State<ItemCart> {
   int index = 1;
   double totalSum = 0;
   @override
   void initState() {
     super.initState();
-     totalSum = widget.item.Price;
-    BlocProvider.of<CartTotalCubit>(context).add(widget.item.Price , widget.itemIndex);
+    totalSum = widget.item.Price;
+    BlocProvider.of<CartTotalCubit>(context)
+        .add(widget.item.Price, widget.itemIndex);
   }
 
   void _incrementIndex() {
     index++;
     totalSum = widget.item.Price * index;
-    BlocProvider.of<CartTotalCubit>(context).add(totalSum , widget.itemIndex);
+    BlocProvider.of<CartTotalCubit>(context).add(totalSum, widget.itemIndex);
     setState(() {});
   }
 
@@ -37,9 +42,10 @@ class _ItemCartState extends State<ItemCart> {
       index--;
     }
     totalSum = widget.item.Price * index;
-    BlocProvider.of<CartTotalCubit>(context).add(totalSum , widget.itemIndex);
+    BlocProvider.of<CartTotalCubit>(context).add(totalSum, widget.itemIndex);
     setState(() {});
   }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -117,7 +123,7 @@ class _ItemCartState extends State<ItemCart> {
                             padding: EdgeInsets.only(left: 16, top: 5),
                             child: GestureDetector(
                               onTap: () {
-                               _incrementIndex();
+                                _incrementIndex();
                               },
                               child: Image(
                                   image: AssetImage('assets/Group 60.png')),
@@ -127,7 +133,8 @@ class _ItemCartState extends State<ItemCart> {
                       ],
                     ),
                   ],
-                )
+                ),
+               
               ],
             ),
           ),
@@ -136,17 +143,12 @@ class _ItemCartState extends State<ItemCart> {
           right: 20,
           bottom: 15,
           child: GestureDetector(
-            onTap: widget.onremove,
-            child: SizedBox(
-              height: 25,
-              child: Image(image: AssetImage('assets/remove.png')))),
+              onTap: widget.onremove,
+              child: SizedBox(
+                  height: 25,
+                  child: Image(image: AssetImage('assets/remove.png')))),
         ),
-        
-         
       ],
-    
     );
   }
-  
 }
-

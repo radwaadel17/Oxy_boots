@@ -1,10 +1,12 @@
 import 'package:app/Parts/Button%20design.dart';
 import 'package:app/Parts/input%20text%20design.dart';
+import 'package:app/views/Sign%20in.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
- String? name;
+
 class signUp extends StatefulWidget {
   const signUp({super.key});
 
@@ -17,11 +19,24 @@ class _signUpState extends State<signUp> {
   String? Password;
   bool Isloading = false;
   bool _obscureText = true;
+   String? name;
 
   void _togglePasswordView() {
     setState(() {
       _obscureText = !_obscureText;
     });
+  }
+  Future<void> addUsers(){
+     CollectionReference users = FirebaseFirestore.instance.collection('users');
+    return users.add(
+     {
+      'name':name,
+      'email':email,
+      'pass': password,
+
+     }
+
+    );
   }
   @override
   Widget build(BuildContext context) {

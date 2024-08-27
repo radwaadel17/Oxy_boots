@@ -43,6 +43,8 @@ dependencies:
   dio: ^5.6.0
   flutter_bloc: ^8.1.6
   sidebarx: ^0.17.1
+  page_transition: ^2.1.0
+  cloud_firestore: ^4.14.0
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +75,7 @@ flutter:
 
   assets:
     - assets/
+    - assets/side bar icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
