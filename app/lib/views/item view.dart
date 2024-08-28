@@ -249,7 +249,13 @@ class _ItemDetailsState extends State<ItemDetails> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GestureDetector(
-                onTap: () => setState(() => selectedIndex = 0),
+                onTap: () {
+                   selectedIndex = 0;
+                   widget.item.size = selectedIndex ;
+                   setState(() {
+                     
+                   });
+                },
                 child: Container(
                   width: 50,
                   height: 50,
@@ -281,7 +287,13 @@ class _ItemDetailsState extends State<ItemDetails> {
               ),
               SizedBox(width: 8),
               GestureDetector(
-                onTap: () => setState(() => selectedIndex = 1),
+                onTap: () {
+                   selectedIndex = 1;
+                   widget.item.size = selectedIndex ;
+                   setState(() {
+                     
+                   });
+                },
                 child: Container(
                   width: 50,
                   height: 50,
@@ -313,7 +325,13 @@ class _ItemDetailsState extends State<ItemDetails> {
               ),
               SizedBox(width: 8),
               GestureDetector(
-                onTap: () => setState(() => selectedIndex = 2),
+                onTap: () {
+                   selectedIndex = 2;
+                   widget.item.size = selectedIndex ;
+                   setState(() {
+                     
+                   });
+                },
                 child: Container(
                   width: 50,
                   height: 50,
@@ -345,7 +363,13 @@ class _ItemDetailsState extends State<ItemDetails> {
               ),
               SizedBox(width: 8),
               GestureDetector(
-                onTap: () => setState(() => selectedIndex = 3),
+                onTap: () {
+                   selectedIndex = 3;
+                   widget.item.size = selectedIndex ;
+                   setState(() {
+                     
+                   });
+                },
                 child: Container(
                   width: 50,
                   height: 50,
@@ -377,7 +401,13 @@ class _ItemDetailsState extends State<ItemDetails> {
               ),
               SizedBox(width: 8),
               GestureDetector(
-                onTap: () => setState(() => selectedIndex = 4),
+                onTap: () {
+                   selectedIndex = 4;
+                   widget.item.size = selectedIndex ;
+                   setState(() {
+                     
+                   });
+                },
                 child: Container(
                   width: 50,
                   height: 50,
@@ -409,7 +439,13 @@ class _ItemDetailsState extends State<ItemDetails> {
               ),
               SizedBox(width: 8),
               GestureDetector(
-                onTap: () => setState(() => selectedIndex = 5),
+                onTap: () {
+                   selectedIndex = 5;
+                   widget.item.size = selectedIndex ;
+                   setState(() {
+                     
+                   });
+                },
                 child: Container(
                   width: 50,
                   height: 50,

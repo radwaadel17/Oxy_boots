@@ -6,8 +6,9 @@ class ItemModel {
   final String description ;
   final String img2 ;
   final String img3 ;
+ int size;
 
-  const ItemModel(
+  ItemModel(
       {required this.Price,
       required this.txt,
       required this.type,
@@ -15,6 +16,7 @@ class ItemModel {
       required this.description ,
       required this.img2,
       required this.img3,
+      required this.size,
       });
   factory ItemModel.fromjson(json) {
     return ItemModel(
@@ -25,6 +27,7 @@ class ItemModel {
         img2: json['images'][1],
         img3: json['images'][2],
         description: json['description'],
+        size: 2 ,
         );
   }
   factory ItemModel.fromjsonapi2(json){
@@ -36,6 +39,7 @@ class ItemModel {
   description: json['description'],
   img2: '',
   img3: '',
+  size: 2,
   );
   }
 }

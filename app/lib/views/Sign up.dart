@@ -6,7 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 class signUp extends StatefulWidget {
   const signUp({super.key});
 
@@ -26,18 +26,7 @@ class _signUpState extends State<signUp> {
       _obscureText = !_obscureText;
     });
   }
-  Future<void> addUsers(){
-     CollectionReference users = FirebaseFirestore.instance.collection('users');
-    return users.add(
-     {
-      'name':name,
-      'email':email,
-      'pass': password,
 
-     }
-
-    );
-  }
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -143,6 +132,7 @@ class _signUpState extends State<signUp> {
                 setState(() {});
                 try {
                   await registerUser();
+                  await saveUserData();
                   showSnackbar(context, 'Success Registration');
                   Navigator.pop(context);
                 } on FirebaseAuthException catch (e) {
@@ -222,5 +212,11 @@ class _signUpState extends State<signUp> {
     var auth = FirebaseAuth.instance;
     UserCredential user = await auth.createUserWithEmailAndPassword(
         email: email!, password: Password!);
+  }
+  Future<void> saveUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('email', email!);
+    await prefs.setString('password', Password!);
+    await prefs.setString('name', name!);
   }
 }
