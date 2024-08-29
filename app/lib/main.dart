@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:app/core/utlis/size%20config%20model.dart';
+import 'package:app/cubits/Profile%20Cubit/profile.dart';
 import 'package:app/cubits/cart%20cubit.dart/cartCubit.dart';
 import 'package:app/cubits/favourite%20cubit/favCubit.dart';
 import 'package:app/cubits/total%20sum%20cubit/sumCubit.dart';
@@ -57,6 +58,10 @@ class shoesStore extends StatelessWidget {
         BlocProvider(
           create: (context) => CartTotalCubit(),
         ),
+         BlocProvider(
+          create: (context) => ProfileImageCubit(),
+        ),
+
       ],
       child: ScreenUtilInit(
         designSize: Size(360, 690),

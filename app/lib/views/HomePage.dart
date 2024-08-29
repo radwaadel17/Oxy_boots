@@ -8,6 +8,8 @@ import 'package:app/Parts/search.dart';
 import 'package:app/Service/builderItem.dart';
 import 'package:app/Service/builderitem2.dart';
 import 'package:app/core/utlis/size%20config%20model.dart';
+import 'package:app/cubits/Profile%20Cubit/profile.dart';
+import 'package:app/cubits/Profile%20Cubit/states.dart';
 import 'package:app/cubits/favourite%20cubit/favCubit.dart';
 import 'package:app/views/Account%20view.dart';
 import 'package:app/views/Cart%20view.dart';
@@ -23,7 +25,6 @@ import 'package:searchfield/searchfield.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class HomePage extends StatefulWidget {
   HomePage({super.key});
 
@@ -33,16 +34,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 2;
-  String name ='none';
-  File? _imageFile ;
+  String name = 'none';
+  File? _imageFile;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _loadUserData();
-
   }
-  
+
   final List<Widget> pages = [
     Account(),
     FavoriteView(),
@@ -50,20 +50,15 @@ class _HomePageState extends State<HomePage> {
     CartView(),
     NotifyView(),
   ];
- 
+
   @override
-  
-   Future<void> _loadUserData() async {
-   
+  Future<void> _loadUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       name = prefs.getString('name') ?? 'Not set';
-      String? imagePath = prefs.getString('profile_image_path');
-      if (imagePath != null) {
-      _imageFile = File(imagePath);
-    }
     });
-    }
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
@@ -85,17 +80,32 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment:
                           CrossAxisAlignment.start, // Align items to the start
                       children: [
-                        ClipOval(
-                          child: Container(
-                            height: 64,
-                            width: 64,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              color: Colors.white,
-                            ),
-                            child: _imageFile!=null ? Image.file(_imageFile! , fit: BoxFit.cover,) : Image.asset('assets/side bar icons/user.png' , fit: BoxFit.cover),
-                          ),
-                          
+                        BlocBuilder<ProfileImageCubit, ProfileImageState>(
+                          builder: (context, state) {
+                            if(state is ProfileImageUpdated){
+                                return ClipOval(
+                              child: Container(
+                                height: 64,
+                                width: 64,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Colors.white,
+                                ),
+                                child: Image.file(state.imageFile),
+                              ),       
+                            );
+                            }else{
+                              return  Container(
+                                height: 64,
+                                width: 64,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Colors.white,
+                                ),
+                                child: Image.asset('assets/side bar icons/user.png'),
+                              );       
+                            }
+                          },
                         ),
                         SizedBox(
                             width:
@@ -133,30 +143,28 @@ class _HomePageState extends State<HomePage> {
                     itemsSideBar(
                       img: 'assets/side bar icons/home.png',
                       txt: 'Home Page',
-                      onTap: (){
-                       Navigator.pushNamed(context, 'hm');
+                      onTap: () {
+                        Navigator.pushNamed(context, 'hm');
                       },
                     ),
                     itemsSideBar(
                       img: 'assets/side bar icons/Frame.png',
                       txt: 'My Cart',
-                      onTap: (){
+                      onTap: () {
                         Navigator.pushNamed(context, 'cart');
                       },
                     ),
                     itemsSideBar(
                       img: 'assets/side bar icons/Group.png',
                       txt: 'Favourite',
-                      onTap: (){
+                      onTap: () {
                         Navigator.pushNamed(context, 'fav');
                       },
                     ),
                     itemsSideBar(
                       img: 'assets/side bar icons/Fats Delivery.png',
                       txt: 'Orders',
-                      onTap:() {
-                        
-                      } ,
+                      onTap: () {},
                     ),
                     itemsSideBar(
                       img: 'assets/side bar icons/Notifications.png',
@@ -174,8 +182,7 @@ class _HomePageState extends State<HomePage> {
                       img: 'assets/side bar icons/Sign Out (1).png',
                       txt: 'Sign Out',
                       onTap: () {
-                      Navigator.pushNamed(context, 'signin');
-
+                        Navigator.pushNamed(context, 'signin');
                       },
                     ),
                   ],
@@ -263,8 +270,12 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 45,
                 child: GestureDetector(
-                    onTap: (){
-                      Navigator.push(context, PageTransition(child: CartView(), type: PageTransitionType.bottomToTop));
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              child: CartView(),
+                              type: PageTransitionType.bottomToTop));
                     },
                     child: Image.asset('assets/Group 27.png')),
               ),
@@ -278,19 +289,15 @@ class _HomePageState extends State<HomePage> {
 }
 
 class itemsSideBar extends StatelessWidget {
-  const itemsSideBar({
-    super.key,
-    required this.img,
-    required this.txt,
-    required this.onTap
-  });
+  const itemsSideBar(
+      {super.key, required this.img, required this.txt, required this.onTap});
   final String img;
   final String txt;
-  final VoidCallback onTap ;
+  final VoidCallback onTap;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap ,
+      onTap: onTap,
       child: Row(
         children: [
           SizedBox(height: 25, child: Image.asset(img)),

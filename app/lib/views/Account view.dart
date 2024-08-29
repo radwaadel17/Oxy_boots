@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:app/cubits/Profile%20Cubit/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class Account extends StatefulWidget {
@@ -12,7 +14,7 @@ class Account extends StatefulWidget {
 
 class _AccountState extends State<Account> {
   String name = 'not set';
-  String email = 'not set';
+  String? email = 'not set';
   String password = 'not set';
   File? _imageFile; 
   @override
@@ -29,9 +31,10 @@ class _AccountState extends State<Account> {
       name = prefs.getString('name') ?? 'Not set';
       email = prefs.getString('email') ?? 'Not set';
       password = prefs.getString('password') ?? 'Not set';
-       String? imagePath = prefs.getString('profile_image_path');
+       String? imagePath = prefs.getString('profile_image_path_$email');
       if (imagePath != null) {
         _imageFile = File(imagePath);
+         BlocProvider.of<ProfileImageCubit>(context).updateProfileImage(_imageFile!);
       }
     });
   }
@@ -40,10 +43,12 @@ class _AccountState extends State<Account> {
    if (returnedIamge == null) return ;
     setState(() {
       _imageFile =File(returnedIamge!.path);
+      BlocProvider.of<ProfileImageCubit>(context).updateProfileImage(_imageFile!);
     });
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('profile_image_path', returnedIamge.path);
-    print('Saved image path: ${prefs.getString('profile_image_path')}');
+    email = prefs.getString('email');
+    prefs.setString('profile_image_path_$email', returnedIamge.path);
+    print('Saved image path: ${prefs.getString('profile_image_path_$email')}');
   }
   @override
   Widget build(BuildContext context) {
@@ -65,7 +70,7 @@ class _AccountState extends State<Account> {
             Padding(
               padding: const EdgeInsets.only(right: 5),
               child:
-                  SizedBox(height: 24, child: Image.asset('assets/side bar icons/user.png')),
+                  SizedBox(height: 24, child: Image.asset('assets/IconP.png')),
             ),
           ],
         ),
@@ -85,9 +90,10 @@ class _AccountState extends State<Account> {
                     
                                 
                         borderRadius: BorderRadius.circular(50),
-                        color: Colors.black),
+                        color: Colors.white),
                   
-                      child: _imageFile == null ? Image.asset('assets/Frame 11.png' , fit: BoxFit.cover,) : Image.file(_imageFile! ,fit: BoxFit.cover,),
+                      child: _imageFile == null ?
+                          Image.asset('assets/side bar icons/user.png' , fit: BoxFit.cover,) : Image.file(_imageFile! ,fit: BoxFit.cover,),
                      
                       
                   ),
@@ -149,7 +155,7 @@ class _AccountState extends State<Account> {
                   ],
                 ),
               ),
-             container(txt: email,),
+             container(txt: email!,),
               SizedBox(
                 height: 30,
               ),
@@ -173,7 +179,6 @@ class _AccountState extends State<Account> {
         ));
   }
 }
-
 // ignore: camel_case_types
 class container extends StatelessWidget {
    final String txt ;

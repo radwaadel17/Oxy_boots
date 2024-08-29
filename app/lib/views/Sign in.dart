@@ -157,6 +157,10 @@ class _signInState extends State<signIn> {
                           context, 'Wrong password provided for that user.');
                       //print('Wrong password provided for that user.');
                     }
+                    else{
+                      showSnackbar(
+                          context, 'Wrong password or email , please try again');
+                    }
                   } catch (e) {
                     showSnackbar(context, 'there was an error');
                   }
