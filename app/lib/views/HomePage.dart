@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:app/Parts/new%20Arrivals%20item.dart';
 import 'package:app/Parts/new%20arrivals%20container.dart';
 import 'package:app/Parts/brands%20icon%20Scroll.dart';
@@ -19,6 +21,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:searchfield/searchfield.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 class HomePage extends StatefulWidget {
   HomePage({super.key});
@@ -29,6 +33,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 2;
+  String name ='none';
+  File? _imageFile ;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _loadUserData();
+
+  }
+  
   final List<Widget> pages = [
     Account(),
     FavoriteView(),
@@ -36,7 +50,20 @@ class _HomePageState extends State<HomePage> {
     CartView(),
     NotifyView(),
   ];
+ 
   @override
+  
+   Future<void> _loadUserData() async {
+   
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      name = prefs.getString('name') ?? 'Not set';
+      String? imagePath = prefs.getString('profile_image_path');
+      if (imagePath != null) {
+      _imageFile = File(imagePath);
+    }
+    });
+    }
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: Drawer(
@@ -58,13 +85,17 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment:
                           CrossAxisAlignment.start, // Align items to the start
                       children: [
-                        Container(
-                          height: 64,
-                          width: 64,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Colors.white,
+                        ClipOval(
+                          child: Container(
+                            height: 64,
+                            width: 64,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(50),
+                              color: Colors.white,
+                            ),
+                            child: _imageFile!=null ? Image.file(_imageFile! , fit: BoxFit.cover,) : Image.asset('assets/side bar icons/user.png' , fit: BoxFit.cover),
                           ),
+                          
                         ),
                         SizedBox(
                             width:
@@ -81,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                             ),
                             Text(
-                              'Radwa_adel',
+                              name,
                               style: TextStyle(
                                 color: Colors.white,
                                 fontSize: 24,
@@ -232,10 +263,9 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: 45,
                 child: GestureDetector(
-                    onTap: () => Navigator.push(context,
-                            MaterialPageRoute(builder: (context) {
-                          return CartView();
-                        })),
+                    onTap: (){
+                      Navigator.push(context, PageTransition(child: CartView(), type: PageTransitionType.bottomToTop));
+                    },
                     child: Image.asset('assets/Group 27.png')),
               ),
             ],

@@ -15,11 +15,13 @@ import 'package:app/views/Sign%20in.dart';
 import 'package:app/views/Sign%20up.dart';
 import 'package:app/views/item%20view.dart';
 import 'package:app/views/see%20all%20best%20Seller.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -69,6 +71,7 @@ class shoesStore extends StatelessWidget {
             'prof':(context) => Account(),
             'not':(context) => NotifyView(),
             'cart':(context)=> CartView(),
+            'rec' : (context) => revcoveryPage(),
         },
           debugShowCheckedModeBanner: false,
           home: const introPage(),
@@ -76,4 +79,17 @@ class shoesStore extends StatelessWidget {
       ),
     );
   }
+  Future<UserCredential> signInWithGoogle() async {
+  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+  final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth?.accessToken,
+    idToken: googleAuth?.idToken,
+  );
+
+  // Once signed in, return the UserCredential
+  return await FirebaseAuth.instance.signInWithCredential(credential);
+}
 }

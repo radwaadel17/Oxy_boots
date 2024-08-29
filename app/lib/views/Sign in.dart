@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:app/Parts/Button%20design.dart';
 import 'package:app/Parts/input%20text%20design.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 class signIn extends StatefulWidget {
   const signIn({super.key});
 
@@ -24,7 +28,7 @@ class _signInState extends State<signIn> {
       _obscureText = !_obscureText;
     });
   }
-
+ 
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
@@ -142,6 +146,7 @@ class _signInState extends State<signIn> {
                   setState(() {});
                   try {
                     await loginUser();
+                    await saveUserData();
                     showSnackbar(context, 'Success Login');
                     Navigator.pushReplacementNamed(context, 'hm');
                   } on FirebaseAuthException catch (e) {
@@ -170,21 +175,26 @@ class _signInState extends State<signIn> {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(24),
                   ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                          height: 20,
-                          child:
-                              Image(image: AssetImage('assets/Group 108.png'))),
-                      Text(
-                        ' Sign in with google',
-                        style: TextStyle(
-                          fontSize: 18,
-                          color: Colors.black,
+                  child: GestureDetector(
+                    onTap: ()async{
+                    signInWithGoogle();
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                            height: 20,
+                            child:
+                                Image(image: AssetImage('assets/Group 108.png'))),
+                        Text(
+                          ' Sign in with google',
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   )),
             ),
             const SizedBox(
@@ -224,5 +234,26 @@ class _signInState extends State<signIn> {
     var auth = FirebaseAuth.instance;
     UserCredential user = await auth.signInWithEmailAndPassword(
         email: email!, password: password!);
+  }
+  Future<UserCredential> signInWithGoogle() async {
+  // Trigger the authentication flow
+  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+  // Obtain the auth details from the request
+  final GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
+
+  // Create a new credential
+  final credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth?.accessToken,
+    idToken: googleAuth?.idToken,
+  );
+
+  // Once signed in, return the UserCredential
+  return await FirebaseAuth.instance.signInWithCredential(credential);
+}
+ Future<void> saveUserData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('email', email!);
+    await prefs.setString('password', password!);
   }
 }

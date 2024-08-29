@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class Account extends StatefulWidget {
   const Account({super.key});
@@ -9,8 +12,9 @@ class Account extends StatefulWidget {
 
 class _AccountState extends State<Account> {
   String name = 'not set';
-  String? email = 'not set';
-  String? password = 'not set';
+  String email = 'not set';
+  String password = 'not set';
+  File? _imageFile; 
   @override
   void initState() {
     // TODO: implement initState
@@ -18,18 +22,34 @@ class _AccountState extends State<Account> {
     _loadUserData();
   }
 
+  
    Future<void> _loadUserData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       name = prefs.getString('name') ?? 'Not set';
       email = prefs.getString('email') ?? 'Not set';
       password = prefs.getString('password') ?? 'Not set';
+       String? imagePath = prefs.getString('profile_image_path');
+      if (imagePath != null) {
+        _imageFile = File(imagePath);
+      }
     });
+  }
+   Future _PickImage() async {
+   final returnedIamge = await ImagePicker().pickImage(source: ImageSource.gallery);
+   if (returnedIamge == null) return ;
+    setState(() {
+      _imageFile =File(returnedIamge!.path);
+    });
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('profile_image_path', returnedIamge.path);
+    print('Saved image path: ${prefs.getString('profile_image_path')}');
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          backgroundColor: const Color(0xfff8f9fb),
           title: const Center(
             child: Padding(
               padding: EdgeInsets.only(right: 35),
@@ -45,7 +65,7 @@ class _AccountState extends State<Account> {
             Padding(
               padding: const EdgeInsets.only(right: 5),
               child:
-                  SizedBox(height: 24, child: Image.asset('assets/IconP.png')),
+                  SizedBox(height: 24, child: Image.asset('assets/side bar icons/user.png')),
             ),
           ],
         ),
@@ -57,12 +77,20 @@ class _AccountState extends State<Account> {
                 height: 30,
               ),
               Stack(children: [
-                Container(
-                  height: 90,
-                  width: 90,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.black),
+                ClipOval(
+                  child: Container(
+                    height: 90,
+                    width: 90,
+                    decoration: BoxDecoration(
+                    
+                                
+                        borderRadius: BorderRadius.circular(50),
+                        color: Colors.black),
+                  
+                      child: _imageFile == null ? Image.asset('assets/Frame 11.png' , fit: BoxFit.cover,) : Image.file(_imageFile! ,fit: BoxFit.cover,),
+                     
+                      
+                  ),
                 ),
                 Positioned(
                     bottom: -39,
@@ -71,7 +99,10 @@ class _AccountState extends State<Account> {
                     child: SizedBox(
                         height: 80,
                         child: GestureDetector(
-                            child: Image.asset('assets/Group 289.png')))),
+                          onTap: () {
+                            _PickImage();
+                          },
+                          child: Image.asset('assets/Group 289.png')))),
               ]),
               const SizedBox(
                 height: 20,
@@ -100,7 +131,7 @@ class _AccountState extends State<Account> {
                   ],
                 ),
               ),
-              container(txt: name!,),
+              container(txt: name,),
               SizedBox(
                 height: 30,
               ),
@@ -118,7 +149,7 @@ class _AccountState extends State<Account> {
                   ],
                 ),
               ),
-             container(txt: email!,),
+             container(txt: email,),
               SizedBox(
                 height: 30,
               ),
@@ -136,7 +167,7 @@ class _AccountState extends State<Account> {
                   ],
                 ),
               ),
-              container(txt: password!,),
+              container(txt: password,),
             ],
           ),
         ));
@@ -176,4 +207,5 @@ class container extends StatelessWidget {
       ),
     );
   }
+ 
 }

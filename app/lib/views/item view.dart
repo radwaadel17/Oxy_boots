@@ -7,6 +7,7 @@ import 'package:app/views/Cart%20view.dart';
 import 'package:app/views/test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:page_transition/page_transition.dart';
 
 class ItemDetails extends StatefulWidget {
   const ItemDetails({super.key, required this.item});
@@ -29,9 +30,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                 height: 45,
                 child: GestureDetector(
                   onTap: (){
-                    Navigator.push(context, MaterialPageRoute(builder: (context){
-                      return CartView();
-                    }));
+                   Navigator.push(context, PageTransition(child: CartView(), type: PageTransitionType.fade));
                   },
                   child: SizedBox(
                     height: 210,
@@ -522,9 +521,7 @@ class _ItemDetailsState extends State<ItemDetails> {
                   child: ElevatedButton(
                     onPressed: () {
                       BlocProvider.of<Cartcubit>(context).addItem(widget.item);
-                      Navigator.push(context, MaterialPageRoute(builder: (context){
-                         return CartView();
-                      }));
+                      Navigator.push(context, PageTransition(child: CartView(), type: PageTransitionType.bottomToTop));
                     },
                     child: Text(
                       'Add to cart',

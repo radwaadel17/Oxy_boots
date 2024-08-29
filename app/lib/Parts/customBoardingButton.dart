@@ -9,7 +9,7 @@ class BoardingButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: (){
         if(txt == 'Start'){
-          Navigator.pushNamed(context ,'signin');
+          Navigator.pushReplacementNamed(context ,'signin');
         }
       },
       style: ElevatedButton.styleFrom(

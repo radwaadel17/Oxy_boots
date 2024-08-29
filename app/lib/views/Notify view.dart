@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotifyView extends StatelessWidget {
   const NotifyView({super.key});
@@ -8,14 +9,15 @@ class NotifyView extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xfff8f9fb),
       appBar: AppBar(
-        leadingWidth: 0,
-        leading: SizedBox(),
         backgroundColor: const Color(0xfff8f9fb),
         title: const Center(
-            child: Text(
-          'Notifications',
-          style: TextStyle(),
-        )),
+            child: Padding(
+              padding: EdgeInsets.only(right: 50),
+              child: Text(
+                        'Notifications',
+                        style: TextStyle(),
+                      ),
+            )),
       ),
       body: Stack(
        children: [ ListView(
